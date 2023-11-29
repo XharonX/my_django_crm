@@ -1,0 +1,39 @@
+{% extends 'services-dept/servicing_layout.html' %}
+{% load timesincefilter %}
+{% block title %} KanoteX | Return Error List {% endblock %}
+{% block content %}
+<section class="container">
+  {% for e in object_list %}
+  <div class="card my-3 p-2">
+    <div class="card-header">
+      <h6>
+      {{e.purchase_shop}}
+      </h6>
+      {% if e.purchase_date|months_since >= e.product.product_warranty %}
+      <h6>
+
+        Purchased by <b class="text-danger">{{ e.purchase_date|timesince }}</b> ago
+      </h6>
+      {% else %}
+      <h6>
+        Purchased by <b class="text-success">{{e.purchase_date|timesince }}</b> ago
+      </h6>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ e.product.product_name }}</h5>
+      <ul class="list-group list-group-flush my-2 mx-3">
+        <li class="list-group-item"><b>Accessories: </b> {{ e.accessories }}</li>
+        <li class="list-group-item"><b>Physical Damage:</b> {{ e.physical_dmg }}</li>
+        <li class="list-group-item"><b>Error Reason: </b> {{ e.reason }} </li>
+      </ul>
+      <a href="{% url 'finding' e.id %}" class="btn btn-primary">Go to check & modified</a>
+    </div>
+    <div class="card-footer text-body-secondary">
+      {{ e.received_date|timesince }}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

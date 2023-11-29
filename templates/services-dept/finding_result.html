@@ -1,0 +1,92 @@
+{% extends 'services-dept/error_received_forms.html' %}
+{% block title %} Finding Result {% endblock %}
+{% block content %}
+  <form method="POST" class="container">
+    {% csrf_token %}
+    <article class="container m-1 mt-3 p-4 mb-5 bg-body-tertiary rounded-3 border border-info border-2">
+      <h3 class="text-center mb-3"> Service Form</h3>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <div class="form-control border-black mb-3">
+            {{ received_form.customer }}
+          </div>
+          <div class="form-control border-black mb-3">
+            {{ received_form.product.product_name }}
+          </div>
+
+        </div>
+        <div class="col offset-md-4">
+          <div class="d-inline-flex form-control border-black justify-items-between mb-3">
+          {{ received_form.purchase_date|date:"d/m/Y" }}
+          </div>
+          <div class="form-control border-black mb-3">
+            {{ received_form.purchase_shop }}
+          </div>
+        </div>
+      </div>
+    <table class="table table-borderless m-2">
+      <thead>
+        <tr class="">
+          <th scope="col">Code</th>
+          <th scope="col"> Item Name </th>
+          <th scope="col">Qty</th>
+        </tr>
+      </thead>
+      <tbody class="p-4">
+        <tr>
+          <td id="code">{{ received_form.product.product_code }}</td>
+          <td id="name">{{ received_form.product.product_name }}</td>
+          <td>
+            {{ received_form.qty }}
+          </td>
+          <!-- Add more cells as needed -->
+        </tr>
+        <tr>
+          <td>Accessories</td>
+          <td colspan="2">
+            {{ received_form.accessories }}
+          </td>
+        </tr>
+        <tr>
+          <td>Physical Damage</td>
+          <td colspan="2">
+            {{ received_form.physical_dmg }}
+          </td>
+        </tr>
+        <tr>
+          <td>Error Reason <hr></td>
+          <td colspan="2">
+            {{ received_form.reason }}
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.technician_finding.label }}</td>
+          <td colspan="2">{{ form.technician_finding }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.final_result.label }}</td>
+          <td colspan="2">{{ form.final_result }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.fees.label }}</td>
+          <td colspan="2">{{ form.fees }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.fees_by.label }}</td>
+          <td colspan="2">
+            {% for option in form.fees_by %}
+            <div class="form-check form-check-inline">
+              {{ option }}
+            </div>
+            {% endfor %}
+            </td>
+        </tr>
+      </tbody>
+
+
+    </table>
+    </article>
+  </form>
+{% endblock %}
