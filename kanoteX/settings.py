@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'services.apps.ServicesConfig',
     'employees.apps.EmployeesConfig',
     'productions.apps.ProductionsConfig',
+    'admin_datta',
 
 ]
 
@@ -74,7 +75,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'kanoteX.wsgi.application'
 
 
-AUTH_USER_MODEL = 'employees.User'
+AUTH_USER_MODEL = 'employees.Employee'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -82,7 +83,7 @@ AUTH_USER_MODEL = 'employees.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'test_db.sqlite3',
     }
 }
 

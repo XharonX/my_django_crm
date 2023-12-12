@@ -10,8 +10,14 @@ def get_product_selections():
     choices = [['', 'Select the product code']]
     for p in Product.objects.all():
         choices.append((p, p))
-    print(choices)
     return choices
+
+
+def get_reversed_years(start, end):
+    y = []
+    for year in range(end, start, -1):
+        y.append(year)
+    return y
 
 
 class ServiceForm(forms.ModelForm):
@@ -24,7 +30,7 @@ class ServiceForm(forms.ModelForm):
     }))
 
     purchase_date = forms.DateTimeField(required=True, widget=forms.SelectDateWidget(
-        years=reversed([y for y in range(datetime.now().year-3, datetime.now().year+1)]),
+        years=get_reversed_years(datetime.now().year - 3, datetime.now().year),
         attrs={
             'class': 'form-control',
             'id': 'purchaseDate',
@@ -76,6 +82,7 @@ class ServiceForm(forms.ModelForm):
 
 
 class TechFindingForm(forms.ModelForm):
+
     technician_finding = forms.CharField(required=True, widget=forms.Textarea(attrs={
         'class': 'form-control',
         'placeholder': 'eg. battery ဖောင်းနေပါသည်။ error မှန်ကန်ပါသည်။',
@@ -85,7 +92,7 @@ class TechFindingForm(forms.ModelForm):
 
     final_result = forms.CharField(required=True, widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'eg. reset ချ၍ အဆင်ပြေသေးသည်။',
+        'placeholder': 'eg. အသစ်အလဲပေးသည်။',
         'id': 'finalResult',
     }))
 
@@ -106,4 +113,5 @@ class TechFindingForm(forms.ModelForm):
 
     class Meta:
         model = Servicing
-        fields = ['technician_finding', 'final_result', 'fees',]
+        fields = '__all__'
+        exclude = ['form']

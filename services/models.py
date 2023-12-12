@@ -1,14 +1,10 @@
 from django.db import models
-from employees.models import Sale, Service
+from employees.models import Employee, Technician, Sale
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from productions.models import Product
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
-
-
-class ErrorResult(models.TextChoices):
-    ...
 
 
 class chargedby(models.TextChoices):
@@ -25,24 +21,33 @@ class ErrorReturn(models.Model):
     accessories = models.CharField(max_length=300)
     physical_dmg = models.CharField('Physical Damage', max_length=255)
     reason = models.TextField()
-    # how_happen = models.TextField(verbose_name=_('How to happen?'), )
-    # received_by = models.ManyToManyField(Sale)
+    how_happen = models.TextField(verbose_name=_('How to happen?'), )
+    received_by = models.ForeignKey(Sale, on_delete=models.CASCADE)
     received_date = models.DateTimeField(auto_now_add=True)
-    # modified_date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def is_expired(self):
+        deta = self.received_date - self.purchase_date
+        if deta >= self.product.product_warranty:
+            return True
+        else:
+            return False
 
     def __str__(self):
-        return self.product.product_code + " -> "+ self.reason
+        return str(self.product) + " -> "+ str(self.reason)
 
 
 class Servicing(models.Model):
-    # service_technician = models.ForeignKey(Service, on_delete=models.SET_NULL)
+    technician = models.ForeignKey(Technician, on_delete=models.CASCADE)
     form = models.OneToOneField(ErrorReturn, on_delete=models.CASCADE)
     technician_finding = models.TextField()
     checked = models.DateTimeField(auto_now=True)
-    final_result = models.CharField(max_length=200, choices=ErrorResult.choices)
+    final_result = models.CharField(max_length=200)
     fees = models.IntegerField(default=0)
     fees_by = models.CharField(_('charged_by'), max_length=40, choices=chargedby.choices, default=chargedby.company)
-    # is_checked = models.BooleanField('finished', default=False, blank=True)
+    is_checked = models.BooleanField('finished', default=False, blank=True)
+    approved = models.BooleanField('approved_by', default=False, blank=True)
+    is_done = models.BooleanField('finished', default=False, blank=True)
 
     def __str__(self):
         return self.form.__str__() + self.form.received_date.strftime(" %d-%m-%y")
@@ -52,7 +57,7 @@ class Servicing(models.Model):
 def created_or_updated_servicing(sender, instance, created, **kwargs):
     if created:
         Servicing.objects.create(form=instance)
-
     else:
         instance.servicing.form = instance
         instance.servicing.save()
+

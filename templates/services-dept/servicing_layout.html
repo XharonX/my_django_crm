@@ -29,7 +29,7 @@
 </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+<body class="">
     <center>
       <h3>KanoteX Accessories</h3>
       <h5> Tel: 09-449713405, 09-5129577, 09-5100898</h5>
@@ -38,9 +38,16 @@
     </center>
     {% for message in messages %}
     <div class="container">
-        <div class="container m-1 alert alert-success p-3 rounded-pill" role="alert">
+        {% if message.tag == 'error' %}
+        <div class="container m-1 alert alert-danger p-3 rounded-pill shadow" role="alert">
             <b>{{ message }}</b>
         </div>
+        {% else %}
+        <div class="container m-1 alert alert-{{ message.tags }} p-3 rounded-pill shadow" role="alert">
+            <b>{{ message }}</b>
+        </div>
+        {% endif %}
+
     </div>
     {% endfor %}
     {% block content %}
@@ -66,6 +73,7 @@
         this.value = formattedDate;
     });
   </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

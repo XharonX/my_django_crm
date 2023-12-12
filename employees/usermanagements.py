@@ -82,7 +82,5 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_active', True)
-        extra_fields.setdefault('department', 'general')
-        extra_fields.setdefault('position', 'BOD')
 
-        return self._create_user(username, password, **extra_fields)
+        return self._create_user(username, email, password, **extra_fields)

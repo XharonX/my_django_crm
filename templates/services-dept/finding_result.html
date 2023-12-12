@@ -1,9 +1,14 @@
 {% extends 'services-dept/error_received_forms.html' %}
 {% block title %} Finding Result {% endblock %}
 {% block content %}
-  <form method="POST" class="container">
+  <div class="container">
     {% csrf_token %}
-    <article class="container m-1 mt-3 p-4 mb-5 bg-body-tertiary rounded-3 border border-info border-2">
+    {% if messages %}
+    {% for message in messages %}
+
+    {% endfor %}
+    {% endif %}
+    <article class="container m-1 mt-3 p-4 mb-5 bg-body-tertiary rounded-4 border border-info border-2 shadow-sm">
       <h3 class="text-center mb-3"> Service Form</h3>
       <hr>
       <div class="row">
@@ -62,31 +67,64 @@
           </td>
         </tr>
         <tr>
-          <td>{{ form.technician_finding.label }}</td>
-          <td colspan="2">{{ form.technician_finding }}</td>
-        </tr>
-        <tr>
-          <td>{{ form.final_result.label }}</td>
-          <td colspan="2">{{ form.final_result }}</td>
-        </tr>
-        <tr>
-          <td>{{ form.fees.label }}</td>
-          <td colspan="2">{{ form.fees }}</td>
-        </tr>
-        <tr>
-          <td>{{ form.fees_by.label }}</td>
-          <td colspan="2">
-            {% for option in form.fees_by %}
-            <div class="form-check form-check-inline">
-              {{ option }}
-            </div>
-            {% endfor %}
-            </td>
+          <td colspan="3">
+            {# if form.is_checked #}
+            <form method="POST" class="container">
+              {% csrf_token %}
+              <table class="table table-borderless m-2">
+                <tbody>
+                  <tr>
+              <td>{{ form.technician_finding.label }}</td>
+              <td colspan="2">{{ form.technician_finding }}</td>
+            </tr>
+                  <tr>
+                    <td>{{ form.final_result.label }}</td>
+                    <td colspan="2">{{ form.final_result }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ form.fees.label }}</td>
+                    <td colspan="2">{{ form.fees }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ form.fees_by.label }}</td>
+                    <td colspan="2">
+                      {% for option in form.fees_by %}
+                      <div class="form-check form-check-inline">
+                        {{ option }}
+                      </div>
+                      {% endfor %}
+                      </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" >
+                      <div class="offset-md-4 d-flex">
+                        {% if request.user.department == 'technician' %}
+                        <input class="btn btn-primary offset-md-5" type="submit" value="Ready" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Technician ဘက်မှ checked process ပြီးပါပြီ။">
+                        {% elif request.user.department == 'audit' %}
+                            {% if form.is_checked %}
+<!--                        <input class="btn btn-primary offset-md-5 rounded-pill" type="submit" value="Finish" >-->
+                            {% else %}
+<!--                        <input class="btn btn-primary disabled offset-md-5 rounded-pill" type="submit" value="Approve" >-->
+                            {% endif %}
+                        {% else %}
+                            {% if form.is_done %}
+<!--                        <input class="btn btn-primary offset-md-5 rounded-pill" type="submit" value="Done" >-->
+                            {% else %}
+<!--                        <input class="btn btn-primary disabled offset-md-5 rounded-pill" type="submit" value="Finish" >-->
+                        <input class="btn btn-primary rounded-pill offset-md-5" type="submit" value="Checked" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Technician ဘက်မှ checked process ပြီးပါပြီ။">
+
+                            {% endif %}
+                        {% endif %}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </td>
         </tr>
       </tbody>
-
-
     </table>
     </article>
-  </form>
+  </div>
 {% endblock %}

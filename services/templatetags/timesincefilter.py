@@ -20,14 +20,10 @@ def fivedaysago(value):
 
 @register.filter
 def months_since(value):
-    time_slip = timesince(value)
-    print(value)
     try:
         now = datetime(datetime.now().year, datetime.now().month, datetime.now().day, tzinfo=timezone.utc)
         delta = relativedelta.relativedelta(dt1=now, dt2=value)
-        print(delta)
         time_slip = delta.years * 12 + delta.months
         return time_slip
-
     except ValueError:
-        return 'hello'
+        return 'Infinity'
