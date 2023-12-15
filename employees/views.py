@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .forms import LoginForm
+from .forms import *
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import LoginView
+from .forms import LoginForm
+from django.views.generic import View, CreateView
+from django.contrib.auth.forms import UserCreationForm
 from django.http.response import HttpResponseNotAllowed, HttpResponseForbidden
 # Create your views here.
 
 
-class EmployeeLoginView(LoginView):
+class EmployeeLoginView(View):
     template_name = 'auth/login.html'
     form_class = LoginForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('desktop')
 
     def get(self, request, *args, **kwargs):
         if request.user.is_anonymous:
@@ -23,14 +25,40 @@ class EmployeeLoginView(LoginView):
     def post(self, request, *args, **kwargs):
         if request.user.is_anonymous:
             form = self.form_class(request.POST)
-            if form.is_valid():
-                username = request.POST.get('username')
-                password = request.POST.get('password')
-                print(username, password)
-                account = authenticate(request, username=username, password=password)
-                if account is not None:
-                    login(request, account)
-                    return redirect(self.success_url)
-            else:
-                print(form.errors)
-                return redirect(request.META.get("HTTP_REFERER"))
+
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            print(username, password)
+            account = authenticate(request, username=username, password=password)
+            if account is not None:
+                print('Authentication Failed.')
+                login(request, account)
+                return redirect(self.success_url)
+        else:
+            print("U are already login.")
+            return redirect(request.META.get("HTTP_REFERER"))
+
+
+class EmployeeCreateView(CreateView):
+    template_name = 'auth/register.html'
+    form_class = EmployeeCreationForm
+    success_url = reverse_lazy('desktop')
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            fst = form.cleaned_data['first_name']
+            lst = form.cleaned_data['last_name']
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            dept = form.cleaned_data['dept']
+            pos = form.cleaned_data['position']
+            password = form.cleaned_data['password']
+            try:
+                Employee.objects.create(first_name=fst, last_name=lst, username=username, email=email, dept=dept, \
+                                        position=pos, password=password, is_staff=True)
+            except ValueError:
+                return "Cannot Create an employee staff."
+
+            return redirect('desktop')
+

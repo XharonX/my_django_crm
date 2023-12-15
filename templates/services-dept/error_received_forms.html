@@ -3,9 +3,9 @@
 
 
 {% block content %}
-  <form method="POST" class="container">
+  <form method="POST" class="container container-sm">
     {% csrf_token %}
-    <article class="container m-1 mt-3 p-4 mb-5 bg-body-tertiary rounded-3 border border-primary border-2">
+    <article class="container container-sm m-1 mt-3 p-4 mb-5 bg-body-tertiary rounded-3 border border-primary border-2">
       <h3 class="text-center mb-3"> Service Form</h3>
       <hr>
       <div class="row">
@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-    <table class="table table-borderless text-center">
+    <table class="table table-borderless text-center overflow-x-auto">
       <thead>
         <tr>
           <th scope="col">Code</th>
@@ -68,7 +68,13 @@
         </tr>
         <tr>
           <td colspan="3">
+            {% if request.user.is_authenticated and request.user.dept == 'sale' %}
             <input class="btn btn-primary offset-md-5" type="submit" value="Submit" />
+            {% elif request.user.is_authenticated %}
+            <input class="btn btn-primary offset-md-5 disabled" type="submit" value="Submit" />
+            {% else %}
+
+            {% endif %}
           </td>
         </tr>
         <!-- Add more rows as needed -->

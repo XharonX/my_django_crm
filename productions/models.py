@@ -1,10 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-
-
-
-from employees.models import Employee
-
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -20,7 +16,7 @@ class Product(models.Model):
 
 
 class Specification(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='spec')
     label = models.CharField('Feature: ', max_length=50)
     value = models.CharField('Feature\'s Value: ', max_length=100)
 

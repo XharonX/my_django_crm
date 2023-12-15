@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Permission, BaseUserManager
-from django.db.models.signals import post_save
-from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.db import models
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Create your models here.
 
@@ -34,25 +34,25 @@ class Position(models.Model):
         return self.name
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(Employee, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(_('full name'), max_length=200, blank=True)
-    age = models.IntegerField(blank=True)
-    phone = models.CharField(_('phone number'), max_length=12, unique=True)
-    address1 = models.CharField(_('permanent address'), max_length=300, blank=False)
-    address2 = models.CharField(_('current address'), max_length=300, blank=False)
+# class Profile(models.Model):
+#     user = models.OneToOneField(Employee, on_delete=models.SET_NULL, null=True)
+#     name = models.CharField(_('full name'), max_length=200, blank=True)
+#     age = models.IntegerField(blank=True)
+#     phone = models.CharField(_('phone number'), max_length=12, unique=True)
+#     address1 = models.CharField(_('permanent address'), max_length=300, blank=False)
+#     address2 = models.CharField(_('current address'), max_length=300, blank=True)
+#
+#     def __str__(self):
+#         return f'{self.name}'
+#
+#     def read_position(self):
+#         return f'{self.position} + {self.dept}'
 
-    def __str__(self):
-        return f'{self.name}'
 
-    def read_position(self):
-        return f'{self.position} + {self.dept}'
-
-
-@receiver(post_save, sender=Employee)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        Employee.objects.create(user=instance)
+# @receiver(post_save, sender=Employee)
+# def create_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
 
 
 class EmployeeManager(BaseUserManager):

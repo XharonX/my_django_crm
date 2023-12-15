@@ -1,0 +1,78 @@
+{% extends 'layout/main_base.html' %}
+{% block head %}
+ {% include 'components/head.html' %}
+<title> Create Employee | KanoteX </title>
+{% endblock %}
+
+{% block main %}
+{% block content %}
+<form method="POST" class="container container-sm pt-5">
+  {% csrf_token %}
+  <section class="container container-sm m-1 mt-3 p-2 mb-5 rounded-3 shadow-lg border border-success border-2">
+    <h3 class="text-center mb-3"> Employee Creation Form </h3>
+    <hr>
+    <div class="container">
+      <div class="row row-cols-2">
+        <div class="col">
+          <div class="form-floating mb-2 mx-4">
+            {{ form.first_name }}
+            <label for="fstName">First Name</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating mb-2 mx-4">
+            {{ form.last_name }}
+            <label for="lstName">Last Name</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating mb-2 mx-4">
+            {{ form.username }}
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating mb-2 mx-4">
+            {{ form.email }}
+            <label for="email">Email Address</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating mb-2 mx-4">
+            {{ form.dept }}
+            <label for="id_dept">Department</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating mb-2 mx-4">
+            {{ form.position }}
+            <label for="id_position">Position</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating mb-2 mx-4">
+            {{ form.password }}
+            <label for="id_password">Password</label>
+          </div>
+        </div>
+        <div class="col">
+
+        </div>
+      </div>
+       <div class="mb-3 mx-4">
+            <input type="submit" class="btn btn-success btn-lg form" value="Register">
+          </div>
+    </div>
+  </section>
+</form>
+{% endblock %}
+{% endblock %}
+{% block footer %}
+<div class="container bg-secondary" >
+  <div class="row row-cols-3">
+    <a class="col" href="#"> Create a new position</a>
+    <a class="col" href="#"> Create a new department</a>
+  </div>
+</div>
+{% endblock %}
+

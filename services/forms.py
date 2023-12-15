@@ -23,7 +23,7 @@ def get_reversed_years(start, end):
 class ServiceForm(forms.ModelForm):
 
     customer = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control form-control-sm',
         'placeholder': 'customer name',
         'autocomplete': 'off',
         'id': 'customerName'
@@ -75,10 +75,17 @@ class ServiceForm(forms.ModelForm):
         'id': 'reason',
         'style': 'height: 6rem;'
     }))
+    how_happen = forms.CharField(required=True, widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'placeholder': 'customer သို့မေးမြန်းရန်။ eg.သုံးနေရင်းအလိုလို ရပ်သွားတာ',
+        'id': 'happened',
+        'style': 'height: 6rem;'
+    }))
 
     class Meta:
         model = ErrorReturn
         fields = '__all__'
+        exclude = ['received_by',]
 
 
 class TechFindingForm(forms.ModelForm):
