@@ -1,0 +1,29 @@
+[
+  {
+    "username": "htetmyat",
+    "email": "htetmyat.service@kanotemm.com",
+    "first": "htet",
+    "last": "myat",
+    "is_staff": true,
+    "is_superuser": false,
+    "password": "technician"
+  },
+  {
+    "username": "htethtet",
+    "email": "htethtet.sale@kanotemm.com",
+    "first": "htet",
+    "last": "wyle",
+    "is_staff": true,
+    "is_superuser": false,
+    "password": "saleteam"
+  },
+  {
+    "username": "hanmyowin",
+    "email": "hanwin.bod@kanotemm.com",
+    "first": "han",
+    "last": "win",
+    "is_staff": true,
+    "is_superuser": true,
+    "password": "saleteam"
+  }
+]

@@ -1,11 +1,12 @@
 from .forms import ServiceForm, TechFindingForm
-from django.http.response import JsonResponse, HttpResponse
+from django.http.response import JsonResponse, HttpResponse, HttpResponseNotAllowed
 from .models import Servicing, ErrorReturn
 from productions.models import Product
 from django.views.generic import CreateView, UpdateView, ListView
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
+from employees.models import Employee
 
 # Create your views here.
 
@@ -17,12 +18,28 @@ class CreateServiceFrom(CreateView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, _('Error Service has been created {request.user}'))
-            return redirect('new_error')
+            user = request.user
+            if request.user.is_authenticated and request.user.dept_id == 3:
+                received_by = Employee.objects.get(username=user.username)
+                instance = form.save(commit=False)
+                instance.received_by = received_by
+                instance.save()
+                messages.success(request, _(f'Error Service has been created {request.user}'))
+            return redirect('error_list')
         else:
+            print(form)
             messages.error(request, form.errors)
             return redirect(request.META.get("HTTP_REFERER"))
+
+
+class EditServiceForm(UpdateView):
+    model = ErrorReturn
+    template_name = 'services-dept/edit_service_form.html'
+    form_class = ServiceForm
+    success_url = 'error_list'
+
+    def get_object(self, queryset=None):
+        return ErrorReturn.objects.get(pk=self.kwargs['pk'])
 
 
 class ReturnErrorsView(ListView):

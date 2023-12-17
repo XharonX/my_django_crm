@@ -22,7 +22,7 @@ class ErrorReturn(models.Model):
     physical_dmg = models.CharField('Physical Damage', max_length=255)
     reason = models.TextField()
     how_happen = models.TextField(verbose_name=_('How to happen?'), blank=True)
-    # received_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    received_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
     received_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
@@ -47,7 +47,7 @@ class Servicing(models.Model):
     fees_by = models.CharField(_('charged_by'), max_length=40, choices=chargedby.choices, default=chargedby.company)
     is_checked = models.BooleanField('finished', default=False, blank=True)
     approved = models.BooleanField('approved_by', default=False, blank=True)
-    is_done = models.BooleanField('finished', default=False, blank=True)
+    is_done = models.BooleanField('received', default=False, blank=True)
 
     def __str__(self):
         return self.form.__str__() + self.form.received_date.strftime(" %d-%m-%y")

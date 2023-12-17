@@ -16,17 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
 from employees.views import EmployeeLoginView, EmployeeCreateView
+from productions.views import ProductViewSet
 from django.contrib.auth.views import LogoutView
 from .views import *
+
+router = routers.DefaultRouter()
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name='desktop'),
     # path('profile/', , name='profile'),
     # path('admin_datta/tables/', dashboard.basic_tables, name='tables'),
     path('service/', include('services.urls')),
+    path('api/', include('api.urls')),
     path('login/', EmployeeLoginView.as_view(), name='login'),
     path('register/', EmployeeCreateView.as_view(), name='login'),
-    # path('register/', UserRegistrationView.as_view(), name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
 ]

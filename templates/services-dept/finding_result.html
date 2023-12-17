@@ -98,19 +98,19 @@
                   <tr>
                     <td colspan="3" >
                       <div class="offset-md-4 d-flex">
-                        {% if request.user.department == 'technician' %}
+                        {% if request.user.dept_id == 1 %}
                         <input class="btn btn-primary offset-md-5" type="submit" value="Ready" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Technician ဘက်မှ checked process ပြီးပါပြီ။">
-                        {% elif request.user.department == 'audit' %}
+                        {% elif request.user.dept_id == 2 or request.user.dept_id == 1 %}
                             {% if form.is_checked %}
-<!--                        <input class="btn btn-primary offset-md-5 rounded-pill" type="submit" value="Finish" >-->
+                        <input class="btn btn-primary offset-md-5 rounded-pill" type="submit" value="Finish" >
                             {% else %}
-<!--                        <input class="btn btn-primary disabled offset-md-5 rounded-pill" type="submit" value="Approve" >-->
+                        <input class="btn btn-primary disabled offset-md-5 rounded-pill" type="submit" value="Approved" >
                             {% endif %}
-                        {% else %}
+                        {% elif request.user.dept_id == 3 %}
                             {% if form.is_done %}
-<!--                        <input class="btn btn-primary offset-md-5 rounded-pill" type="submit" value="Done" >-->
+                        <input class="btn btn-primary offset-md-5 rounded-pill" type="submit" value="Done" >
                             {% else %}
-<!--                        <input class="btn btn-primary disabled offset-md-5 rounded-pill" type="submit" value="Finish" >-->
+                        <input class="btn btn-primary disabled offset-md-5 rounded-pill" type="submit" value="Received" >
                         <input class="btn btn-primary rounded-pill offset-md-5" type="submit" value="Checked" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Technician ဘက်မှ checked process ပြီးပါပြီ။">
 
                             {% endif %}

@@ -35,9 +35,9 @@
         {{ e.received_date|timesince }}
       </div>
       {% if request.user.is_authenticated %}
-        {% if request.user.department == 'technician' %}
+        {% if request.user.dept_id == 1 %}
         <a href="{% url 'finding' e.id %}" class="btn btn-primary rounded-pill"> Check & Service </a>
-        {% elif request.user.department == 'audit' %}
+        {% elif request.user.dept_id == 2 %}
           {% if e.servicing.is_checked %}
         <div class="d-inline-flex justify-content-between align-items-center">
             <div class="form-check form-switch">
@@ -53,11 +53,13 @@
           <a href="{% url 'finding' e.id %}" class="btn btn-primary rounded-pill shadow disabled"> Approved </a>
         </div>
           {% endif %}
-        {% elif request.user.department == 'sale' %}
+        {% elif request.user.dept_id == 3 %}
           {% if e.servicing.is_done %}
-          <a href="{% url 'finding' e.id %}" class="btn btn-primary rounded-pill"> Approved </a>
+          <a href="{% url 'edit_service_form' e.pk %}" class="btn btn-primary disabled rounded-pill"> Edit </a>
+          <a href="{% url 'edit_service_form' e.pk %}" class="btn btn-primary  rounded-pill"> Received </a>
           {% else %}
-          <a href="{% url 'finding' e.id %}" class="btn btn-primary rounded-pill"> Approved </a>
+          <a href="{% url 'edit_service_form' e.pk %}" class="btn btn-primary rounded-pill"> Edit </a>
+          <a href="{% url 'edit_service_form' e.pk %}" class="btn btn-primary disabled rounded-pill"> Received </a>
         {% endif %}
         {% else %}
           <a href="{% url 'finding' e.id %}" class="btn btn-primary rounded-pill"> Approved </a>

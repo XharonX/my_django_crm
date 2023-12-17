@@ -1,0 +1,122 @@
+  [
+    {
+    "product_code": "PDS1-10",
+    "product_name": "Kanote Powerdome speed 10000mAh 22.5W Power Bank",
+    "product_price": 46500.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "PDS1-20",
+    "product_name": "Kanote Powerdome speed 20000mAh 22.5W Power Bank",
+    "product_price": 82000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "PDS1-30",
+    "product_name": "Kanote Powerdome speed 30000mAh 22.5W Power Bank",
+    "product_price": 95000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "PPS-10",
+    "product_name": "Kanote Power Plus 10000mAh 10W Power Bank",
+    "product_price": 33500.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "PPS-20",
+    "product_name": "Kanote Power Plus 20000mAh 10W Power Bank",
+    "product_price": 44500.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "PPS-30",
+    "product_name": "Kanote Power Plus 30000mAh 10W Power Bank",
+    "product_price": 65000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "KWC-65",
+    "product_name": "Kanote GaN Charger PD 65W",
+    "product_price": 49500,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "KWC-20",
+    "product_name": "Kanote Power Charge 20W PD Charger",
+    "product_price": 19500.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "KWC-33",
+    "product_name": "Kanote Power Charge 33W PD Charger",
+    "product_price": 31500.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "KWC-30",
+    "product_name": "Kanote Power Charge 30W PD Charger",
+    "product_price": 26500.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "A1287H12",
+    "product_name": "Anker PowerCore Metro Essential 20000 PD(20W) - Black",
+    "product_price": 180000.0,
+    "product_warranty": 18
+  },
+  {
+    "product_code": "A1611H11",
+    "product_name": "Anker 622 Magnetic Battery (MagGo) 5000mAh - Black",
+    "product_price": 195000.0,
+    "product_warranty": 18
+  },
+  {
+    "product_code": "A1611H21",
+    "product_name": "Anker 622 Magnetic Battery (MagGo) 5000mAh - White",
+    "product_price": 195000.0,
+    "product_warranty": 18
+  },
+  {
+    "product_code": "A1611H31",
+    "product_name": "Anker 622 Magnetic Battery (MagGo) 5000mAh - Blue",
+    "product_price": 195000.0,
+    "product_warranty": 18
+  },
+  {
+    "product_code": "A3119H11",
+    "product_name": "Anker Soundcore Mini 3 Portable Speaker - Black",
+    "product_price": 150000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "A39480Q1",
+    "product_name": "Anker Soundcore TWS A20i Earbuds - Purple",
+    "product_price": 95000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "A3948021",
+    "product_name": "Anker Soundcore TWS A20i Earbuds - White",
+    "product_price": 95000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "A3936031",
+    "product_name": "Anker Soundcore Space A40 Wireless Earbuds - Blue",
+    "product_price": 355000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "A3936H11",
+    "product_name": "Anker Soundcore Space A40 Wireless Earbuds - Black",
+    "product_price": 355000.0,
+    "product_warranty": 12
+  },
+  {
+    "product_code": "A6610021",
+    "product_name": "Anker Soundcore Sleep A10 Earbuds - White",
+    "product_price": 395000.0,
+    "product_warranty": 12
+  }
+  ]
