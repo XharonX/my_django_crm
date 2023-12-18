@@ -1,4 +1,5 @@
 from .forms import ServiceForm, TechFindingForm
+from django.urls import reverse_lazy
 from django.http.response import JsonResponse, HttpResponse, HttpResponseNotAllowed
 from .models import Servicing, ErrorReturn
 from productions.models import Product
@@ -36,7 +37,7 @@ class EditServiceForm(UpdateView):
     model = ErrorReturn
     template_name = 'services-dept/edit_service_form.html'
     form_class = ServiceForm
-    success_url = 'error_list'
+    success_url = reverse_lazy('error_list')
 
     def get_object(self, queryset=None):
         return ErrorReturn.objects.get(pk=self.kwargs['pk'])
