@@ -22,8 +22,14 @@
             {{ form.password }}
             <label class="px-4" for="id_password">password</label>
           </div>
-        <div class="py-3 d-flex inline-items-end">
-          <input type="submit" class="btn btn-primary rounded-pill offset-md-8 shadow-sm" value="Login" style="width: 12rem; height: 3rem; background: #">
+        <div class="d-flex-inline justify-content-between align-items-center">
+          {% if request.user.is_superuser %}
+            <a href="{% url 'register' %}" class="align-self-end text-decoration-none me-5"> Create a new account</a>
+            <input type="submit" class="btn btn-primary rounded-pill shadow-sm ms-5" value="Login" style="width: 6rem; height: 3rem; background: #">
+          {% else %}
+            <input type="submit" class="btn btn-primary rounded-pill shadow-sm offset-md-5" value="Login" style="width: 8rem; height: 3rem; background: #">
+
+          {% endif %}
         </div>
       </form>
     </div>
@@ -32,4 +38,7 @@
   <form>
   </form>
 {% endblock %}
+{% endblock %}
+{% block footer %}
+{% include 'components/footer.html' %}
 {% endblock %}

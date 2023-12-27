@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +13,7 @@
           var selectedProductCode = $(this).val();
           if (selectedProductCode) {
               $.ajax({
-                  url: '/service/get_product_info/' + selectedProductCode + '/',
+                  url: '/service/get_product_info/product_name=' + selectedProductCode + '/',
                   type: 'GET',
                   dataType: 'json',
                   success: function (data) {
@@ -30,6 +31,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body class="">
+  <header>
+    {% include 'components/navbar_offcanvas.html' %}
+  </header>
+  <main class="tab-content" id="v-pills-tabContent">
     <center>
       <h3>KanoteX Accessories</h3>
       <h5> Tel: 09-449713405, 09-5129577, 09-5100898</h5>
@@ -52,6 +57,8 @@
     {% endfor %}
     {% block content %}
     {% endblock %}
+  </main>
+  {% include 'components/footer.html' %}
     <script>
       document.getElementById('purchaseDate').addEventListener('input', function() {
         // Get the current value of the input

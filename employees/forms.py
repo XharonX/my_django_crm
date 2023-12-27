@@ -62,3 +62,7 @@ class EmployeeCreationForm(forms.ModelForm):
         model = Employee
         fields = ['first_name', 'last_name', 'username', 'email', 'dept', 'position', 'password']
         # exclude = ['']
+
+
+class LeaveForm(forms.ModelForm):
+    ...

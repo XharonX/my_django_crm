@@ -10,6 +10,10 @@ class Employee(AbstractUser):
     email = models.EmailField(_('email'), max_length=255, unique=True)
     dept = models.ForeignKey('Department', related_name='department', on_delete=models.SET_NULL, null=True)
     position = models.ForeignKey('Position', related_name='position', on_delete=models.SET_NULL, null=True)
+    # salary = models.IntegerField(_('salary'), blank=True, null=True, default=0)
+    # phone = models.CharField(_('phone'), max_length=12, blank=True)
+    # gender = models.CharField(_('gender'), max_length=20, choices=(('male', 'male'), ('female', 'female'), ('none', 'none')), blank=True, default=None)
+    # age = models.IntegerField(_('age'), blank=True)
 
     def __str__(self):
         return f'{self.username}'
@@ -38,6 +42,7 @@ class Position(models.Model):
 #     user = models.OneToOneField(Employee, on_delete=models.SET_NULL, null=True)
 #     name = models.CharField(_('full name'), max_length=200, blank=True)
 #     age = models.IntegerField(blank=True)
+#     gender = models.CharField(_('gender'), max_length=20, choices=(('male', 'male'),('female', 'female')))
 #     phone = models.CharField(_('phone number'), max_length=12, unique=True)
 #     address1 = models.CharField(_('permanent address'), max_length=300, blank=False)
 #     address2 = models.CharField(_('current address'), max_length=300, blank=True)
@@ -58,12 +63,12 @@ class Position(models.Model):
 class EmployeeManager(BaseUserManager):
     def __init__(self, dept):
         super().__init__()
-        self.dept_name = dept
+        self.dept_id = dept
 
     def get_queryset(self, *args, **kwargs):
         member = super().get_queryset(*args, **kwargs)
 
-        return member.filter(dept__name=self.dept_name)
+        return member.filter(dept__id=self.dept_id)
 
     # def get_dept(self, value):
     #     if type(value) is str():
@@ -75,7 +80,7 @@ class EmployeeManager(BaseUserManager):
 
 
 class Technician(Employee):
-    objects = EmployeeManager('Technology')
+    objects = EmployeeManager(1)
 
     def __str__(self):
         return f"{self.username}"
@@ -87,7 +92,7 @@ class Technician(Employee):
 
 
 class Sale(Employee):
-    objects = EmployeeManager('sale')
+    objects = EmployeeManager(3)
 
     def __str__(self):
         return f"{self.username}"
@@ -98,7 +103,7 @@ class Sale(Employee):
 
 
 class Accounting(Employee):
-    objects = EmployeeManager('accounting')
+    objects = EmployeeManager(2)
 
     def __str__(self):
         return f"{self.username}"
@@ -109,7 +114,7 @@ class Accounting(Employee):
 
 
 class Audit(Employee):
-    objects = EmployeeManager('audit')
+    objects = EmployeeManager(4)
 
     def __str__(self):
         return f"{self.username}"

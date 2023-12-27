@@ -20,18 +20,19 @@ from rest_framework import routers
 from employees.views import EmployeeLoginView, EmployeeCreateView
 from productions.views import ProductViewSet
 from django.contrib.auth.views import LogoutView
-from .views import *
-
+from employees.views import DashboardView as dashboard
+from django.conf import settings
+from django.conf.urls.static import static
 router = routers.DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', dashboard, name='desktop'),
+    path('', dashboard.as_view(), name='desktop'),
     # path('profile/', , name='profile'),
-    # path('admin_datta/tables/', dashboard.basic_tables, name='tables'),
-    path('service/', include('services.urls')),
-    path('api/', include('api.urls')),
+    path('service/', include('services.urls'), name='services'),
+    path('api/', include('api.urls'), name="api"),
     path('login/', EmployeeLoginView.as_view(), name='login'),
-    path('register/', EmployeeCreateView.as_view(), name='login'),
+    path('create-new-employee/', EmployeeCreateView.as_view(), name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
 ]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

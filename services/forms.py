@@ -23,7 +23,7 @@ def get_reversed_years(start, end):
 class ServiceForm(forms.ModelForm):
 
     customer = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={
-        'class': 'form-control form-control-sm',
+        'class': 'form-control form-control-sm rounded-4',
         'placeholder': 'customer name',
         'autocomplete': 'off',
         'id': 'customerName'
@@ -32,25 +32,32 @@ class ServiceForm(forms.ModelForm):
     purchase_date = forms.DateTimeField(required=True, widget=forms.SelectDateWidget(
         years=get_reversed_years(datetime.now().year - 3, datetime.now().year),
         attrs={
-            'class': 'form-control',
+            'class': 'form-control rounded-3',
             'id': 'purchaseDate',
             'autocomplete': 'off',
         }))
 
     purchase_shop = forms.CharField(required=True, widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control rounded-4',
         'placeholder': 'eg. Junction City',
         'id': 'purchaseShop',
 
     }))
 
     product = forms.ModelChoiceField(queryset=Product.objects.all(), empty_label='Select the product code', widget=forms.Select(attrs={
-        'class': 'form-control',
+        'class': 'form-control rounded-4 ',
         'id': 'productCode',
+        'style': 'width: 15rem',
 
     }))
+
+    # online_sale= forms.CharField(max_length=15, widget=forms.TextInput(attrs={
+    #     'class': 'form-control rounded-4',
+    #     'id': 'onlinesale_id',
+    # }))
+
     qty = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={
-        'class': 'form-control offset-md-5',
+        'class': 'form-control rounded-pill offset-md-4',
         'placeholder': 'eg. 1',
         'id': 'productCode',
         'min': 1,
@@ -58,25 +65,25 @@ class ServiceForm(forms.ModelForm):
     }))
 
     accessories = forms.CharField(required=True, widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control rounded-4 me-4 py-2 px-3',
         'placeholder': 'eg. item only or all accessories',
         'id': 'accessories',
     }))
 
     physical_dmg = forms.CharField(required=True, widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control rounded-4 py-2 me-5',
         'placeholder': 'eg. ကလောတံဖြင့် ထိုးထား၊ ပြင်းထန်ပြုတ်ကျ',
         'id': 'phy-dmg',
     }))
 
     reason = forms.CharField(required=True, widget=forms.Textarea(attrs={
-        'class': 'form-control',
+        'class': 'form-control rounded-4',
         'placeholder': 'eg. battery ဖောင်းသွားပါသဖြင့်',
         'id': 'reason',
         'style': 'height: 6rem;'
     }))
     how_happen = forms.CharField(required=True, widget=forms.Textarea(attrs={
-        'class': 'form-control',
+        'class': 'form-control rounded-4',
         'placeholder': 'customer သို့မေးမြန်းရန်။ eg.သုံးနေရင်းအလိုလို ရပ်သွားတာ',
         'id': 'happened',
         'style': 'height: 6rem;'
@@ -111,8 +118,7 @@ class TechFindingForm(forms.ModelForm):
 
     }))
 
-    fees_by = forms.ChoiceField(label='Checked_by',
-                                initial='comp',
+    fees_by = forms.ChoiceField(initial='comp',
                                 choices=[('cust', 'customer'), ('comp', 'company')],
                                 widget=forms.RadioSelect(attrs={
                                         'class': 'form-check-input',
@@ -121,4 +127,4 @@ class TechFindingForm(forms.ModelForm):
     class Meta:
         model = Servicing
         fields = '__all__'
-        exclude = ['form']
+        exclude = ['form', 'technician']

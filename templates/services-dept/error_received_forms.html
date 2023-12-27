@@ -1,9 +1,15 @@
-{% extends 'services-dept/servicing_layout.html' %}
+{# extends 'services-dept/servicing_layout.html' #}
+{% extends 'layout/mybase.html' %}
 {% block title %} KanoteX | Service Form {% endblock %}
-
-
 {% block content %}
+
   <form method="POST" class="container container-sm">
+    <nav class="ms-2" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item d-flex active" aria-current="page"><h5>Receive</h5></li>
+    <li class="breadcrumb-item d-flex"><a href="#"><h5>Service</h5></a></li>
+  </ol>
+</nav>
     {% csrf_token %}
     <article class="container container-sm m-1 mt-3 p-4 mb-5 bg-body-tertiary rounded-3 border border-primary border-2">
       <h3 class="text-center mb-3"> Service Form</h3>

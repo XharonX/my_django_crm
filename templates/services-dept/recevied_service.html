@@ -1,10 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout/mybase.html' %}
+{% block title %} KanoteX | Service Form {% endblock %}
+{% block content %}
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-sm-12 col-xl-12">
+        <div class="card">
+<!--          <div class="card-header">-->
+<!--            <h5 style="font-weight: 600;"> Service Form </h5>-->
+<!--          </div>-->
+          <div class="card-body">
+              <h5>Service Form</h5>
+            <hr>
+            <form method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-floating mb-3">
+                    {{ form.customer }}
+                    <label for="customerName"> customer name</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    {{ form.online_sale }}
+                    <label for="onlineSale"> SO:</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                  </div>
+                </div>
+                <div class="col-md-5">
 
-</body>
-</html>
+                  <div class="form-floating mb-3">
+                    {{ form.purchase_shop }}
+                    <label for="purchase_shop"> purchase shop</label>
+                  </div>
+                  <div class="form-floating mb-3 border rounded-4 ps-3 py-2">
+                    <div>
+                    <label for="purchaseDate"> purchase date</label>
+                    <div class="d-inline-flex justify-items-between m-b-3">
+                      {{ form.purchase_date }}
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Item Name</th>
+                      <th>Qty</th>
+                    </tr>
+                    </thead>
+                  <tbody>
+                    <tr>
+                      <td id="codE">{{ form.product }}</td>
+                      <td id="name">item name</td>
+                      <td>{{ form.qty }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Accessories</th>
+                      <td colspan="2">
+                        {{ form.accessories }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Physical Damage</th>
+                      <td colspan="2">
+                        {{ form.physical_dmg }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row"> Error Reason</th>
+                      <td colspan="2">
+                        {{ form.reason }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row"> Detail</th>
+                      <td colspan="2">
+                        {{ form.how_happen }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="">
+                        {% if request.user.is_authenticated and request.user.dept_id == 3 %}
+                        <input class="btn btn-primary float-right" type="submit" value="Submit" />
+                        {% elif request.user.is_authenticated %}
+                        <input class="btn btn-primary float-right disabled" type="submit" value="Submit" />
+                        {% else %}
+
+                        {% endif %}
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+</form>
+{% endblock %}
