@@ -12,6 +12,9 @@ class Product(models.Model):
     product_warranty = models.IntegerField('warranty months', choices=[(m * 3, str(m * 3) + ' months') for m in range(1, 8)])
 
     def __str__(self):
+        return f"{str(self.product_code)}"
+
+    def returnProduct(self):
         return f"{str(self.product_code)} ({str(self.product_name)})"
 
 
